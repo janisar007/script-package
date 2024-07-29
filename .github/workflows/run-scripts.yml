@@ -1,0 +1,29 @@
+name: Package Script Automation
+
+on:
+  workflow_dispatch:
+    inputs:
+      repo_url:
+        description: 'The URL of the repository to clone'
+        required: true
+        type: string
+      input_version:
+        description: 'The version to pass to the package.sh script'
+        required: true
+        type: string
+
+jobs:
+  run-package-script:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      run: |
+        git clone ${{ github.event.inputs.repo_url }} repo
+        cd repo
+
+    - name: Navigate to Scripts and Run Package
+      run: |
+        cd repo/scripts
+        chmod +x package.sh
+        ./package.sh --version ${{ github.event.inputs.input_version }}
