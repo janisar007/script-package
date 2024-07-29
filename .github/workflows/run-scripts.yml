@@ -19,7 +19,7 @@ jobs:
     steps:
     - name: Checkout Repository
       run: |
-        git clone https://${{ secrets.PAT }}@github.com/${{ github.event.inputs.repo_url }} repo
+        git clone ${{ github.event.inputs.repo_url }} repo
         cd repo
 
     - name: Navigate to Scripts and Run Package
